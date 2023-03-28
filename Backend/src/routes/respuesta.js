@@ -1,6 +1,9 @@
 var express = require("express");
 var router = express.Router();
 const crearRespuesta = require("./controllers/rest-controller");
+const { registroController } = require("./controllers/registroController");
+const { loginValidator } = require("../validators/loginValidator");
+const { registroValidator } = require("../validators/registroValidator");
 
 
 
@@ -8,4 +11,8 @@ const crearRespuesta = require("./controllers/rest-controller");
 router.post("/", async  (req, res) => {
     await crearRespuesta(req, res);
 });
+
+router.post('/registrar_usuario', registroValidator, registroController.registrarUsuario);
+router.post('/login', loginValidator, registroController.inicioSesion);
+
 module.exports = router;
