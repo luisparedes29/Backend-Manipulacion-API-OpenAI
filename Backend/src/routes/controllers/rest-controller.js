@@ -4,13 +4,12 @@ const { Configuration, OpenAIApi } = require('openai');
 require('dotenv').config();
 
 const config = new Configuration({
-    apiKey: "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"
+    apiKey: process.env.API_KEY
 })
 
 const openai = new OpenAIApi(config);
 
 function crearRespuesta(req, res) {
-
     console.log("Hola");
     // Obtener la pregunta del cuerpo
     const pregunta = req.body.pregunta;
@@ -19,11 +18,11 @@ function crearRespuesta(req, res) {
         model: 'text-davinci-003',
         prompt: pregunta, // Pregunta obtenida del cuerpo
         temperature: 0.5,
-        max_tokens: 100,
+        max_tokens: 2049,
     })
         .then((response) => {
             // Enviar la respuesta como JSON al cliente
-            res.json(response.data.choices);
+            res.json(response.data.choices[0].text);
         })
         .catch((error) => {
             // Enviar el error como JSON al cliente con error.response.data
