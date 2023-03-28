@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const { usuario } = require('../models/user');
-const { conexionDb } = require("../dbconfig");
+const { usuario } = require('../../models/user');
+const { conexionDb } = require("../../dbconfig");
 const { usuarioController } = require('./usuarioController');
 const { JWTController } = require('./JWTController');
 
@@ -41,12 +41,12 @@ module.exports.registroController = {
         const usuarioExistente = await usuarioController.getUsuarioByCorreo(req.body.correo);
         if (!usuarioExistente) {
             let mensaje = 'El usuario no está registrado. Por favor, regístrese para poder acceder.'
-            return res.status(200).send(mensaje)
+            return res.status(200).json(mensaje)
         };
 
         if (await bcrypt.compare(req.body.password, usuarioExistente.password)) {
             const token = JWTController.createToken({ correo: usuarioExistente.correo })
-            res.send({ usuarioExistente, token });
+            res.json({ usuarioExistente, token });
         }
         else
             res.status(401).json({ errors: { message: 'Datos incorrectos. Verifique' } })

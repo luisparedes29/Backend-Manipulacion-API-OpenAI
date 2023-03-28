@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+
 module.exports.JWTController = {
     createToken(payload) {
         const expirationTime = new Date(Date.now() + (10 * 60 * 1000)); // La duracion es de 10 minutos en milisegundos

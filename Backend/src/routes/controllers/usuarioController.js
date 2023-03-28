@@ -1,4 +1,4 @@
-const { usuario } = require('../models/user');
+const { usuario } = require('../../models/user');
 
 module.exports.usuarioController = {
     async getUsuarioByCorreo(correo) {
