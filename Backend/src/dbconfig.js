@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize')
+var { Sequelize } = require('sequelize')
 
 const sequelize = new Sequelize('datos_usuarios', 'root', '', {
     dialect: 'mysql',

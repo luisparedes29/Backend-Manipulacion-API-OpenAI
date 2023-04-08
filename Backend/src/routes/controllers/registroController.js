@@ -1,8 +1,8 @@
-const bcrypt = require('bcrypt');
-const { usuario } = require('../../models/user');
-const { conexionDb } = require("../../dbconfig");
-const { usuarioController } = require('./usuarioController');
-const { JWTController } = require('./JWTController');
+var bcrypt = require('bcrypt');
+var { usuario } = require('../../models/user');
+var { conexionDb } = require("../../dbconfig");
+var { usuarioController } = require('./usuarioController');
+var { JWTController } = require('./JWTController');
 
 module.exports.registroController = {
     async registrarUsuario(req, res) {
