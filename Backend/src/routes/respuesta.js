@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router();
-var crearRespuesta = require("./controllers/rest-controller");
-var { registroController } = require("./controllers/registroController");
-var { loginValidator } = require("../validators/loginValidator");
-var { registroValidator } = require("../validators/registroValidator");
+const express = require("express");
+const router = express.Router();
+const crearRespuesta = require("./controllers/rest-controller");
+const { registroController } = require("./controllers/registroController");
+const { loginValidator } = require("../validators/loginValidator");
+const { registroValidator } = require("../validators/registroValidator");
 
 
 

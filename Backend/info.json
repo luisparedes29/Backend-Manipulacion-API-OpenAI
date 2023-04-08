@@ -1,0 +1,38 @@
+[
+    {
+        "pregunta": "¿Cuáles son los requisitos de admisión para esta universidad?",
+        "respuesta": "Para consultar requisitos de admisión debe escribir al correo admision@uvm.edu.ve"
+    },
+    {
+        "pregunta": "¿Qué programas académicos ofrecen y cuáles son sus requisitos?",
+        "respuesta": "Las carreras ofertadas son: Ingenieria industrial, Ingenieria de computación, Contaduría Pública, Derecho"
+    },
+    {
+        "pregunta": "¿Cuál es el promedio de notas y los requisitos de graduación?",
+        "respuesta": "sabra dios"
+    },
+    {
+        "pregunta": "¿Cuál es el porcentaje de graduados que consiguen trabajo en su campo después de graduarse de esta universidad?",
+        "respuesta": "sabra dios"
+    },
+    {
+        "pregunta": "¿Cuáles son las oportunidades de investigación y prácticas en la industria disponibles?",
+        "respuesta": "Para consultar información de Prácticas Profesionales puede escribir al correo practicasprofesionales@uvm.edu.ve"
+    },
+    {
+        "pregunta": "¿Hay oportunidades de estudio en el extranjero o intercambios con otras universidades?",
+        "respuesta": "sabra dios"
+    },
+    {
+        "pregunta": "¿Cuánto cuesta la matrícula y cuáles son las opciones de ayuda financiera?",
+        "respuesta": "Para solicitar información de los costos de matricula y planes de financiamiento debe escribir al correo unidaddecobranza@uvm.edu.ve"
+    },
+    {
+        "pregunta": "¿Cómo puedo solicitar una constancia de estudio o notas?",
+        "respuesta": "Para solicitar constancias debe escribir al correo controlestudios@uvm.edu.ve"
+    },
+    {
+        "pregunta": "¿Cuánto es la deuda que tengo?",
+        "respuesta": "Puede verificar el monto adeudado en el Sistema Ternanet en cuenta virtual"
+    }
+]
