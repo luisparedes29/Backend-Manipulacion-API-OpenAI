@@ -1,25 +1,12 @@
-const { Sequelize } = require('sequelize')
+const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('datos_usuarios', 'root', '', {
+const name_database = 'datos_usuarios';
+const sequelize = new Sequelize(name_database, 'root', '', {
     dialect: 'mysql',
-    host: 'localhost',
-    createDatabaseIfNotExists: true
+    host: 'localhost'
 });
 
-async function conexionDb() {
-    try {
-        await sequelize.authenticate();
-        console.log('La conexion a la base de datos se ha realizado exitosamente');
-    } catch (error) {
-        console.error('Incapaz de conectar a la base de datos: ', error);
-    }
-}
-
-
 module.exports = {
-    conexionDb,
-    sequelize
+    sequelize,
+    name_database
 }
-
-
-const { Usuario } = require('./models/user');

@@ -15,12 +15,5 @@ const usuario = sequelize.define('usuarios', {
     sonidoPref: DataTypes.INTEGER
 });
 
-usuario.sync({ force: false })
-    .then(() => {
-        console.log('Tabla de usuarios creada en la BD');
-    })
-    .catch((error) => {
-        console.error('Error al crear la tabla de usuarios', error);
-    });
 
-exports.usuario = usuario;
+module.exports = { usuario };
