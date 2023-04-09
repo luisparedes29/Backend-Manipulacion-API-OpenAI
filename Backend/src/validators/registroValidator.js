@@ -1,6 +1,5 @@
 const { body, validationResult } = require('express-validator');
 module.exports.registroValidator = [
-    body('nombre').isString().notEmpty(),
     body('correo').isString().isEmail().notEmpty(),
     body('username').isString().notEmpty(),
     body('password').isString().notEmpty().isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 dígitos'),

@@ -7,12 +7,20 @@ const usuario = sequelize.define('usuarios', {
         autoIncrement: true,
         type: DataTypes.INTEGER
     },
-    nombre: DataTypes.STRING,
     correo: DataTypes.STRING,
     username: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    fotoPerfil: DataTypes.STRING,
+    estilosPref: DataTypes.INTEGER,
+    sonidoPref: DataTypes.INTEGER
+});
 
-})
-
+usuario.sync({ force: false })
+    .then(() => {
+        console.log('Tabla de usuarios creada en la BD');
+    })
+    .catch((error) => {
+        console.error('Error al crear la tabla de usuarios', error);
+    });
 
 exports.usuario = usuario;
