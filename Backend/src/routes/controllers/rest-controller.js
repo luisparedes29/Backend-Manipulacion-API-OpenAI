@@ -1,6 +1,6 @@
 const { Configuration, OpenAIApi } = require('openai');
 const fs = require('fs');
-require('dotenv').config();
+const { resError, resSuccess } = require('../../../statusResponse/res')
 
 const config = new Configuration({
     apiKey: process.env.API_KEY,
@@ -45,11 +45,12 @@ function crearRespuesta(req, res) {
             })
             .then((response) => {
                 // Enviar la respuesta como JSON al cliente
-                res.status(200).json(response.data.choices[0]);
+                resSuccess(req, res, response.data.choices[0], 200)
+              //  res.status(200).json(response.data.choices[0]);
             })
             .catch((error) => {
                 // Enviar el error como JSON al cliente con error.response.data
-                res.status(400).json(error.response.data);
+                resError(req, res, error.response.data, 400)
             }); // Print users
     });
 }

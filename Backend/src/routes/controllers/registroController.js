@@ -3,10 +3,7 @@ const { usuario } = require('../../models/user');
 const { conexionDb } = require("../../dbconfig");
 const { usuarioController } = require('./usuarioController');
 const { JWTController } = require('./JWTController');
-const { resError, resSuccess } = require('../../../statusResponse/res')
-
-
-
+const { resError, resSuccess } = require('../../../statusResponse/res');
 
 module.exports.registroController = {
     async registrarUsuario(req, res) {
@@ -16,11 +13,11 @@ module.exports.registroController = {
             const usuarioExistentePorNombreUsuario = await usuarioController.getUsuarioByUsername(req.body.username);
             if (usuarioExistente) {
                 if (usuarioExistente.correo === req.body.correo) {
-                    return resError(req, res, 'Ya existe una cuenta con este correo.', 409)
+                    return resError(req, res, 'Ya existe una cuenta con este correo dentro de nuestra base de datos. Por favor utiliza un correo diferente.', 409)
                 }
             }
             if (usuarioExistentePorNombreUsuario) {
-                return resError(res, res, 'Ya existe un usuario con este mismo user.', 409)
+                return resError(res, res, 'Ya existe un usuario con este mismo usuario. Por favor elige un nombre de usuario diferente.', 409)
             }
             const hashedPassword = await bcrypt.hash(req.body.password, 10);
             const nuevoUsuario = await usuario.create({
@@ -34,6 +31,9 @@ module.exports.registroController = {
             const token = JWTController.createToken({ correo: nuevoUsuario.correo });
             console.log(nuevoUsuario)
             console.log('Hola, aqui esta el token:', token)
+            res.cookie('token', token, {
+                httpOnly: true
+            })
             return resSuccess(req, res, 'La cuenta se ha creado exitosamente.', 201)
         } catch (error) {
             return resError(req, res, 'Ocurrió un error al registrar al usuario.', 500)
@@ -50,6 +50,9 @@ module.exports.registroController = {
             if (await bcrypt.compare(req.body.password, usuarioExistente.password)) {
                 const token = JWTController.createToken({ correo: usuarioExistente.correo });
                 console.log('Hola, aqui esta el token:', token)
+                res.cookie('token', token, {
+                    httpOnly: true
+                })
                 return resSuccess(req, res, `El inicio de sesión ha sido exitoso. Bienvenido ${usuarioExistente.username}`, 200);
             }
             else {
@@ -58,5 +61,15 @@ module.exports.registroController = {
         } catch (error) {
             return resError(req, res, 'Ha ocurrido un error en el inicio de sesión. Por favor inténtelo de nuevo más tarde.', 500);
         }
+    },
+
+    async cerrarSesion(req, res) {
+        try {
+            res.clearCookie('token');
+            return resSuccess(req, res, 'La sesión se ha cerrado exitosamente.', 200);
+        } catch (error) {
+            return resError(req, res, 'Ocurrió un error al cerrar la sesión.', 500);
+        }
     }
 }
+
