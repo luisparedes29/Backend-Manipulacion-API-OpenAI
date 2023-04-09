@@ -60,7 +60,7 @@ module.exports.registroController = {
                 return resError(req, res, 'La contraseña es incorrecta. Por favor inténtelo de nuevo', 401);
             }
         } catch (error) {
-            return resError(req, res, 'Ha ocurrido un error en el inicio de sesión. Por favor inténtelo de nuevo más tarde.', 500);
+            return resError(req, res, 'Ha ocurrido un error en el inicio de sesión. Por favor inténtelo de nuevo más tarde. ', 500);
         }
     },
 
