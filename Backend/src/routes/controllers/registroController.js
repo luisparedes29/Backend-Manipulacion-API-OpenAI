@@ -29,10 +29,10 @@ module.exports.registroController = {
                 sonidoPref: 1
             });
             const token = JWTController.createToken({ correo: nuevoUsuario.correo });
-            console.log(nuevoUsuario)
-            console.log('Hola, aqui esta el token:', token)
             res.cookie('token', token, {
-                httpOnly: true
+                httpOnly: true,
+                domain: 'localhost',
+                path: '/'
             })
             return resSuccess(req, res, 'La cuenta se ha creado exitosamente.', 201)
         } catch (error) {
@@ -49,9 +49,10 @@ module.exports.registroController = {
             };
             if (await bcrypt.compare(req.body.password, usuarioExistente.password)) {
                 const token = JWTController.createToken({ correo: usuarioExistente.correo });
-                console.log('Hola, aqui esta el token:', token)
                 res.cookie('token', token, {
-                    httpOnly: true
+                    httpOnly: true,
+                    domain: 'localhost',
+                    path: '/'
                 })
                 return resSuccess(req, res, `El inicio de sesión ha sido exitoso. Bienvenido ${usuarioExistente.username}`, 200);
             }
@@ -59,12 +60,15 @@ module.exports.registroController = {
                 return resError(req, res, 'La contraseña es incorrecta. Por favor inténtelo de nuevo', 401);
             }
         } catch (error) {
-            return resError(req, res, 'Ha ocurrido un error en el inicio de sesión. Por favor inténtelo de nuevo más tarde.', 500);
+            return resError(req, res, 'Ha ocurrido un error en el inicio de sesión. Por favor inténtelo de nuevo más tarde. ', 500);
         }
     },
 
     async cerrarSesion(req, res) {
         try {
+            if (!req.cookies.token) {
+                return resError(req, res, 'No se puede cerrar sesión porque no hay un usuario con sesión iniciada.', 400);
+            }
             res.clearCookie('token');
             return resSuccess(req, res, 'La sesión se ha cerrado exitosamente.', 200);
         } catch (error) {
