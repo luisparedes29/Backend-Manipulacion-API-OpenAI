@@ -17,7 +17,6 @@ const usuario = sequelize.define('usuarios', {
 
 usuario.sync({ force: false })
     .then(() => {
-        console.log('Tabla de usuarios creada en la BD');
     })
     .catch((error) => {
         console.error('Error al crear la tabla de usuarios', error);
