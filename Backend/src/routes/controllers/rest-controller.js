@@ -1,6 +1,6 @@
 const { Configuration, OpenAIApi } = require('openai');
 const fs = require('fs');
-const { resError, resSuccess } = require('../../../statusResponse/res')
+const { resError, resSuccess } = require('../../../statusResponse/res');
 
 const config = new Configuration({
     apiKey: process.env.API_KEY,
@@ -28,7 +28,7 @@ function crearRespuesta(req, res) {
         }
 
         let context =
-            'Eres ChatUVM,fuiste creado para ayudar a los estudiantes de la Universidad Valle del Momboy ubicada en el Estado Trujillo, Venezuela, utiliza la siguiente lista de preguntas y respuestas para responder a los estudiantes de la universidad, me responderas la pregunta primero con una presentacion con tu nombre simulando que eres un asistente virtual,';
+            'Eres MomoyBot,fuiste creado para ayudar a los estudiantes de la Universidad Valle del Momboy ubicada en el Estado Trujillo, Venezuela, utiliza la siguiente lista de preguntas y respuestas para responder a los estudiantes de la universidad, me responderas la pregunta primero con una presentacion con tu nombre simulando que eres un asistente virtual,';
 
         // Obtener la pregunta del cuerpo
         let pregunta = 'Tu pregunta es:';
@@ -45,13 +45,23 @@ function crearRespuesta(req, res) {
             })
             .then((response) => {
                 // Enviar la respuesta como JSON al cliente
-                resSuccess(req, res, response.data.choices[0], 200)
-              //  res.status(200).json(response.data.choices[0]);
+                // resSuccess(req, res, response.data.choices[0].text, 200)
+                //    res.status(200).json(response.data.choices[0].text);
+                res.status(200).json({ text: response.data.choices[0].text });
             })
             .catch((error) => {
                 // Enviar el error como JSON al cliente con error.response.data
-                resError(req, res, error.response.data, 400)
-            }); // Print users
+                // resError(req, res, error.response.data, 400)
+                // Verificar si error.response.data contiene un objeto JSON válido
+                const errorResponse =
+                    error.response && error.response.data
+                        ? error.response.data
+                        : error.message;
+                // Enviar el error como JSON al cliente con errorResponse
+                res.status(400).json({
+                    error: errorResponse,
+                });
+            });
     });
 }
 
