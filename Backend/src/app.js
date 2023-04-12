@@ -27,7 +27,7 @@ const swaggerSpec = {
          }
         ]
     },
-    apis: [`${path.join(__dirname, "./routes/respuesta.js")}`],
+    apis: [`${path.join(__dirname, "./routes/*.js")}`],
 };
 
 

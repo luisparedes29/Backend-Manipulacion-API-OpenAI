@@ -44,9 +44,38 @@ const { registroValidator } = require("../validators/registroValidator");
  *          example:
  *              correo: correoejemplo@gmail.com
  *              password: ContraseñaRandom
+ *      /:
+ *          type: object
+ *          properties:
+ *              pregunta:
+ *                  type: string
+ *                  description: pregunta del usuario
+ *          required:
+ *              - pregunta
+ *          example:
+ *              pregunta: Como te llamas?
  */
 
-//Por hacer documentación
+
+/**
+ * @swagger
+ * /api//:
+ *  post:
+ *      summary: Pregunta del usuario
+ *      tags: [Pregunta]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas//'
+ *      responses:
+ *          200:
+ *              description: Pregunta exitosa.
+ *          400:
+ *              description: Ha cometido un error.
+ */
 
 // Crear una ruta POST que recibe una pregunta en el cuerpo y genera una respuesta con tu modelo personalizado
 router.post("/", async (req, res) => {
@@ -58,7 +87,7 @@ router.post("/", async (req, res) => {
  * @swagger
  * /api/registrar_usuario:
  *  post:
- *      summary: Registrar Usuario
+ *      summary: Registrar Usuarionode
  *      tags: [Registrar]
  *      requestBody:
  *          required: true
@@ -105,7 +134,20 @@ router.post('/registrar_usuario', registroValidator, registroController.registra
 router.post('/login', loginValidator, registroController.inicioSesion);
 
 
-//Por hacer.
+/**
+ * @swagger
+ * /api/logout:
+ *  post:
+ *      summary: Salir de la Sesión
+ *      tags: [Logout]
+ *      responses:
+ *          200:
+ *              description: La sesión se ha cerrado exitosamente.
+ *          400:
+ *              description: No se puede cerrar sesión porque no hay un usuario con sesión iniciada.
+ *          500:
+ *              description: Ocurrió un error al cerrar la sesión.
+ */
 
 router.post('/logout', registroController.cerrarSesion);
 
