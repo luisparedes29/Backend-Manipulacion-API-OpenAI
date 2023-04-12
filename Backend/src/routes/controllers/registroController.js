@@ -3,7 +3,7 @@ const { usuario } = require('../../models/user');
 const { conexionDb } = require("../../dbconfig");
 const { usuarioController } = require('./usuarioController');
 const { JWTController } = require('./JWTController');
-const { resError, resSuccess } = require('../../../statusResponse/res');
+const { resError, resSuccess, resSuccessToken } = require('../../../statusResponse/res');
 
 module.exports.registroController = {
     async registrarUsuario(req, res) {
@@ -49,20 +49,16 @@ module.exports.registroController = {
             };
             if (await bcrypt.compare(req.body.password, usuarioExistente.password)) {
                 const token = JWTController.createToken({ correo: usuarioExistente.correo });
-                res.cookie('token', token, {
-                    httpOnly: true,
-                    domain: 'localhost',
-                    path: '/'
-                })
-                return resSuccess(req, res, `El inicio de sesión ha sido exitoso. Bienvenido ${usuarioExistente.username}`, 200);
-            }
-            else {
+                return resSuccessToken(req, res, token, `El inicio de sesión ha sido exitoso. Bienvenido ${usuarioExistente.username}`, 200);
+            } else {
                 return resError(req, res, 'La contraseña es incorrecta. Por favor inténtelo de nuevo', 401);
             }
         } catch (error) {
+            console.log(error)
             return resError(req, res, 'Ha ocurrido un error en el inicio de sesión. Por favor inténtelo de nuevo más tarde. ', 500);
         }
-    },
+    }
+    ,
 
     async cerrarSesion(req, res) {
         try {
