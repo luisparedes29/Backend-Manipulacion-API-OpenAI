@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const { usuario } = require('../../models/user');
-const { conexionDb } = require("../../dbconfig");
 const { usuarioController } = require('./usuarioController');
 const { JWTController } = require('./JWTController');
 const { resError, resSuccess, resSuccessToken } = require('../../../statusResponse/res');
@@ -8,7 +7,6 @@ const { resError, resSuccess, resSuccessToken } = require('../../../statusRespon
 module.exports.registroController = {
     async registrarUsuario(req, res) {
         try {
-            await conexionDb();
             const usuarioExistente = await usuarioController.getUsuarioByCorreo(req.body.correo);
             const usuarioExistentePorNombreUsuario = await usuarioController.getUsuarioByUsername(req.body.username);
             if (usuarioExistente) {
@@ -42,7 +40,6 @@ module.exports.registroController = {
 
     async inicioSesion(req, res) {
         try {
-            await conexionDb();
             const usuarioExistente = await usuarioController.getUsuarioByCorreo(req.body.correo);
             if (!usuarioExistente) {
                 return resError(req, res, 'El usuario no está registrado. Por favor, regístrese para poder acceder.', 401);
