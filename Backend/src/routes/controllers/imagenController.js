@@ -1,8 +1,7 @@
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const fs = require('fs');
-const sharp = require('sharp');
-
+const { usuario } = require('../../models/user');
 
 // Configuration
 cloudinary.config({
@@ -32,15 +31,28 @@ const cargarImagen = (req, res) => {
         try {
             // Retrieve uploaded files from request object
             const image = req.files.image ? req.files.image[0] : undefined;
+            const { username } = req.body;
+            console.log(username);
 
             if (image) {
                 const response = await cloudinary.uploader.upload(image.path, {
                     folder: 'images',
                 });
                 res.status(201).json({
-                    image: { public_id: response.public_id, url: response.secure_url },
+                    image: {
+                        public_id: response.public_id,
+                        url: response.secure_url,
+                    },
                 });
                 fs.unlinkSync(image.path);
+                await usuario.update(
+                    { fotoPerfil: `${response.secure_url}` },
+                    {
+                        where: {
+                            username: `${username}`,
+                        },
+                    }
+                );
             } else {
                 res.status(400).json({ error: 'No se envió ningún archivo' });
             }
@@ -49,7 +61,6 @@ const cargarImagen = (req, res) => {
         }
     });
 };
-
 
 module.exports.imagenController = {
     cargarImagen,

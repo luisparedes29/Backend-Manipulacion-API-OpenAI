@@ -7,7 +7,7 @@ const { resError, resSuccess, resSuccessToken } = require('../../../statusRespon
 module.exports.registroController = {
     async registrarUsuario(req, res) {
         try {
-            const { correo, username, password, secure_url } = req.body; // Propiedades que llegan del frontend.
+            const { correo, username, password} = req.body; // Propiedades que llegan del frontend.
             const usuarioExistente = await usuarioController.getUsuarioByCorreo(correo);
             const usuarioExistentePorNombreUsuario = await usuarioController.getUsuarioByUsername(username);
             if (usuarioExistente) {
@@ -26,7 +26,7 @@ module.exports.registroController = {
                 fotoPerfil: 'https://i.pinimg.com/564x/fc/a3/da/fca3dae7dcd86c63e25458b30742f709.jpg',
                 estilosPref: 1,
                 sonidoPref: 1,
-                secure_url: secure_url
+                // secure_url: secure_url
             });
             const token = JWTController.createToken({ correo: nuevoUsuario.correo });
             res.cookie('token', token, {

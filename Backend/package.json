@@ -24,7 +24,6 @@
     "nodemon": "^2.0.22",
     "openai": "^3.2.1",
     "sequelize": "^6.30.0",
-    "sharp": "^0.32.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2"
   }
