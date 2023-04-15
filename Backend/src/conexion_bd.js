@@ -1,16 +1,16 @@
 const mysql = require('mysql2/promise');
-const { name_database, sequelize } = require('./dbconfig');
+const { sequelize } = require('./dbconfig');
 const { usuario } = require('./models/user');
 
 
 function conexionDb() {
     mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'root',
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
     })
     .then((connection) => {  // Creando la base de datos
-        connection.query(`CREATE DATABASE IF NOT EXISTS ${name_database}`).then(() => {
+        connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`).then(() => {
             console.log('Base de datos creada exitosamente');                
         })
     })
