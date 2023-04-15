@@ -4,6 +4,8 @@ const { usuarioController } = require('./usuarioController');
 const { JWTController } = require('./JWTController');
 const { resError, resSuccess, resSuccessToken } = require('../../../statusResponse/res');
 
+let token = '';
+
 module.exports.registroController = {
     async registrarUsuario(req, res) {
         try {
@@ -28,12 +30,8 @@ module.exports.registroController = {
                 sonidoPref: 1,
                 // secure_url: secure_url
             });
-            const token = JWTController.createToken({ correo: nuevoUsuario.correo });
-            res.cookie('token', token, {
-                httpOnly: true,
-                domain: 'localhost',
-                path: '/'
-            })
+            token = JWTController.createToken({ correo: nuevoUsuario.correo });
+            res.set('Authorization', `Bearer ${token}`);
             return resSuccess(req, res, 'La cuenta se ha creado exitosamente.', 201)
         } catch (error) {
             return resError(req, res, 'Ocurrió un error al registrar al usuario.', 500)
@@ -47,7 +45,8 @@ module.exports.registroController = {
                 return resError(req, res, 'El usuario no está registrado. Por favor, regístrese para poder acceder.', 401);
             };
             if (await bcrypt.compare(req.body.password, usuarioExistente.password)) {
-                const token = JWTController.createToken({ correo: usuarioExistente.correo });
+                token = JWTController.createToken({ correo: usuarioExistente.correo });
+                res.set('Authorization', `Bearer ${token}`);
                 return resSuccessToken(req, res, token, `El inicio de sesión ha sido exitoso. Bienvenido ${usuarioExistente.username}`, 200);
             } else {
                 return resError(req, res, 'La contraseña es incorrecta. Por favor inténtelo de nuevo', 401);
@@ -61,12 +60,14 @@ module.exports.registroController = {
 
     async cerrarSesion(req, res) {
         try {
-            if (!req.cookies.token) {
+            if (!token) {
+                console.log(token)
                 return resError(req, res, 'No se puede cerrar sesión porque no hay un usuario con sesión iniciada.', 400);
             }
-            res.clearCookie('token');
+            token = ''
             return resSuccess(req, res, 'La sesión se ha cerrado exitosamente.', 200);
         } catch (error) {
+            console.log(error)
             return resError(req, res, 'Ocurrió un error al cerrar la sesión.', 500);
         }
     }

@@ -5,6 +5,7 @@ const { registroController } = require("./controllers/registroController");
 const { loginValidator } = require("../validators/loginValidator");
 const { registroValidator } = require("../validators/registroValidator");
 const { imagenController}= require("./controllers/imagenController")
+const authToken = require("./controllers/JWTAuthController");
 
 /**
  * @swagger
@@ -79,7 +80,7 @@ const { imagenController}= require("./controllers/imagenController")
  */
 
 // Crear una ruta POST que recibe una pregunta en el cuerpo y genera una respuesta con tu modelo personalizado
-router.post("/", async (req, res) => {
+router.post("/", authToken, async (req, res) => {
     await crearRespuesta(req, res);
 });
 
