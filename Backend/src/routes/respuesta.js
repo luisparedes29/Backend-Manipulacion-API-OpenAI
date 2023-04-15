@@ -4,6 +4,7 @@ const crearRespuesta = require("./controllers/rest-controller");
 const { registroController } = require("./controllers/registroController");
 const { loginValidator } = require("../validators/loginValidator");
 const { registroValidator } = require("../validators/registroValidator");
+const { imagenController}= require("./controllers/imagenController")
 
 /**
  * @swagger
@@ -163,5 +164,7 @@ router.post('/logout', registroController.cerrarSesion);
 //         res.send(`El usuario esta conectado`)
 //     }
 // })
+
+router.post('/upload', imagenController.cargarImagen);
 
 module.exports = router;

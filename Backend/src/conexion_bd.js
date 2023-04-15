@@ -7,6 +7,7 @@ function conexionDb() {
     mysql.createConnection({
         host: 'localhost',
         user: 'root',
+        password: 'root',
     })
     .then((connection) => {  // Creando la base de datos
         connection.query(`CREATE DATABASE IF NOT EXISTS ${name_database}`).then(() => {

@@ -13,7 +13,7 @@ const usuario = sequelize.define('usuarios', {
     fotoPerfil: DataTypes.STRING,
     estilosPref: DataTypes.INTEGER,
     sonidoPref: DataTypes.INTEGER,
-    secure_url: DataTypes.STRING
+    // secure_url: DataTypes.STRING
 });
 
 
