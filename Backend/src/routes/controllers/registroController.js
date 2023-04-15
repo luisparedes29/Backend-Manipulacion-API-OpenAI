@@ -7,24 +7,26 @@ const { resError, resSuccess, resSuccessToken } = require('../../../statusRespon
 module.exports.registroController = {
     async registrarUsuario(req, res) {
         try {
-            const usuarioExistente = await usuarioController.getUsuarioByCorreo(req.body.correo);
-            const usuarioExistentePorNombreUsuario = await usuarioController.getUsuarioByUsername(req.body.username);
+            const { correo, username, password, secure_url } = req.body; // Propiedades que llegan del frontend.
+            const usuarioExistente = await usuarioController.getUsuarioByCorreo(correo);
+            const usuarioExistentePorNombreUsuario = await usuarioController.getUsuarioByUsername(username);
             if (usuarioExistente) {
-                if (usuarioExistente.correo === req.body.correo) {
+                if (usuarioExistente.correo === correo) {
                     return resError(req, res, 'Ya existe una cuenta con este correo dentro de nuestra base de datos. Por favor utiliza un correo diferente.', 409)
                 }
             }
             if (usuarioExistentePorNombreUsuario) {
                 return resError(res, res, 'Ya existe un usuario con este mismo usuario. Por favor elige un nombre de usuario diferente.', 409)
             }
-            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            const hashedPassword = await bcrypt.hash(password, 10);
             const nuevoUsuario = await usuario.create({
-                correo: req.body.correo,
-                username: req.body.username,
+                correo: correo,
+                username: username,
                 password: hashedPassword,
                 fotoPerfil: 'https://i.pinimg.com/564x/fc/a3/da/fca3dae7dcd86c63e25458b30742f709.jpg',
                 estilosPref: 1,
-                sonidoPref: 1
+                sonidoPref: 1,
+                secure_url: secure_url
             });
             const token = JWTController.createToken({ correo: nuevoUsuario.correo });
             res.cookie('token', token, {

@@ -12,7 +12,8 @@ const usuario = sequelize.define('usuarios', {
     password: DataTypes.STRING,
     fotoPerfil: DataTypes.STRING,
     estilosPref: DataTypes.INTEGER,
-    sonidoPref: DataTypes.INTEGER
+    sonidoPref: DataTypes.INTEGER,
+    secure_url: DataTypes.STRING
 });
 
 
