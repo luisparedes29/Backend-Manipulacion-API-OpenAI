@@ -25,14 +25,14 @@ module.exports.registroController = {
                 correo: correo,
                 username: username,
                 password: hashedPassword,
-                fotoPerfil: 'https://i.pinimg.com/564x/fc/a3/da/fca3dae7dcd86c63e25458b30742f709.jpg',
+                fotoPerfil: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                 estilosPref: 1,
                 sonidoPref: 1,
                 // secure_url: secure_url
             });
             token = JWTController.createToken({ correo: nuevoUsuario.correo });
             res.set('Authorization', `Bearer ${token}`);
-            return resSuccess(req, res, 'La cuenta se ha creado exitosamente.', 201)
+            return resSuccessToken(req, res, token, 'La cuenta se ha creado exitosamente.', 201)
         } catch (error) {
             return resError(req, res, 'Ocurrió un error al registrar al usuario.', 500)
         }
