@@ -62,6 +62,28 @@ const cargarImagen = (req, res) => {
     });
 };
 
+const getImagen= async (req,res)=>{
+    const { username } = req.body;
+    try {
+        const cloudinary = await usuario.findOne(
+            {
+                where:
+                    { username: username }
+            })
+        res.status(200).json({
+            image: {
+                url: cloudinary.fotoPerfil,
+            },
+        });
+    } catch (error) {
+        res.status(404).json({
+            error: "Usuario no encontrado",
+        })
+    }
+
+}
+
 module.exports.imagenController = {
     cargarImagen,
+    getImagen
 };

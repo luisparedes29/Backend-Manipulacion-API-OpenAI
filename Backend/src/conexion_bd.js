@@ -11,7 +11,7 @@ function conexionDb() {
     })
     .then((connection) => {  // Creando la base de datos
         connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`).then(() => {
-            console.log('Base de datos creada exitosamente');                
+            console.log('Base de datos creada exitosamente');
         })
     })
     .then( () => { // Creando la conexion a la base de datos

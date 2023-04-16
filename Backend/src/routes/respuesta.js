@@ -168,4 +168,11 @@ router.post('/logout', registroController.cerrarSesion);
 
 router.post('/upload', imagenController.cargarImagen);
 
+
+
+
+
+
+router.get('/getImage', imagenController.getImagen);
+
 module.exports = router;
