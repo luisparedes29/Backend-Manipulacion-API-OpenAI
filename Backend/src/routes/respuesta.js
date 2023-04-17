@@ -7,6 +7,7 @@ const { registroValidator } = require("../validators/registroValidator");
 const { imagenController}= require("./controllers/imagenController")
 const { actualizarPreferencias } = require('./controllers/personalizacionController')
 const authToken = require("./controllers/JWTAuthController");
+const imagenLoginController = require("./controllers/imagenLoginController");
 
 /**
  * @swagger
@@ -169,7 +170,9 @@ router.post('/logout', registroController.cerrarSesion);
 
 router.post('/upload', imagenController.cargarImagen);
 
-router.get('/getImage', imagenController.getImagen);
+router.post('/getImage', imagenController.getImagen);
+
+router.post('/getImageLogin', imagenLoginController.imageFromLogin);
 
 router.put('/personalizacion', actualizarPreferencias)
 
