@@ -5,6 +5,7 @@ const { registroController } = require("./controllers/registroController");
 const { loginValidator } = require("../validators/loginValidator");
 const { registroValidator } = require("../validators/registroValidator");
 const { imagenController}= require("./controllers/imagenController")
+const { actualizarPreferencias } = require('./controllers/personalizacionController')
 const authToken = require("./controllers/JWTAuthController");
 
 /**
@@ -168,11 +169,8 @@ router.post('/logout', registroController.cerrarSesion);
 
 router.post('/upload', imagenController.cargarImagen);
 
-
-
-
-
-
 router.get('/getImage', imagenController.getImagen);
+
+router.put('/personalizacion', actualizarPreferencias)
 
 module.exports = router;
