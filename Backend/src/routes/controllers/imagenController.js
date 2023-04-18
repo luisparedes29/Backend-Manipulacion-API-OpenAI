@@ -63,12 +63,12 @@ const cargarImagen = (req, res) => {
 };
 
 const getImagen= async (req,res)=>{
-    const { username } = req.body;
+    const { correo } = req.body;
     try {
         const cloudinary = await usuario.findOne(
             {
                 where:
-                    { username: username }
+                    { correo: correo }
             })
         res.status(200).json({
             image: {

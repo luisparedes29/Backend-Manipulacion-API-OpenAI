@@ -22,9 +22,7 @@ function crearRespuesta(req, res) {
         for (let i = 0; i < info.length; i++) {
             pre.push(info[i].pregunta);
             rest.push(info[i].respuesta);
-            // console.log(`question: ${pre[i]},answer: ${rest[i]}`)
             contextUVM += `, "question":"${pre[i]}", "answer":"${rest[i]} "`;
-            // console.log(contextUVM)
         }
 
         let context =
