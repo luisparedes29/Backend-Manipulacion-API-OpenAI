@@ -154,22 +154,9 @@ router.post('/login', loginValidator, registroController.inicioSesion);
 
 router.post('/logout', registroController.cerrarSesion);
 
-
-//  Codigo de prueba para ver si funciona la creacion de la cookie
-
-// router.get('/logout', (req, res) => {
-//     console.log(req.cookies.token)
-//     if (!req.cookies.token) {
-//         return res.send('No hay usuario con sesión iniciada.');
-//     }
-//     else {
-//         res.send(`El usuario esta conectado`)
-//     }
-// })
-
 router.post('/upload', imagenController.cargarImagen);
 
-router.get('/getImage', imagenController.getImagen);
+router.post('/getImage', imagenController.getImagen);
 
 router.put('/personalizacion', actualizarPreferencias)
 

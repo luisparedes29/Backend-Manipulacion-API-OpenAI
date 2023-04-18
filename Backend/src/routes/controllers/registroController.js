@@ -52,7 +52,6 @@ module.exports.registroController = {
                 return resError(req, res, 'La contraseña es incorrecta. Por favor inténtelo de nuevo', 401);
             }
         } catch (error) {
-            console.log(error)
             return resError(req, res, 'Ha ocurrido un error en el inicio de sesión. Por favor inténtelo de nuevo más tarde. ', 500);
         }
     }
@@ -61,13 +60,11 @@ module.exports.registroController = {
     async cerrarSesion(req, res) {
         try {
             if (!token) {
-                console.log(token)
                 return resError(req, res, 'No se puede cerrar sesión porque no hay un usuario con sesión iniciada.', 400);
             }
             token = ''
             return resSuccess(req, res, 'La sesión se ha cerrado exitosamente.', 200);
         } catch (error) {
-            console.log(error)
             return resError(req, res, 'Ocurrió un error al cerrar la sesión.', 500);
         }
     }
