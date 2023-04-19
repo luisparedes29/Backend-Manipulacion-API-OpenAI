@@ -26,8 +26,6 @@ module.exports.registroController = {
                 username: username,
                 password: hashedPassword,
                 fotoPerfil: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-                estilosPref: 1,
-                sonidoPref: 1,
                 // secure_url: secure_url
             });
             token = JWTController.createToken({ correo: nuevoUsuario.correo });
